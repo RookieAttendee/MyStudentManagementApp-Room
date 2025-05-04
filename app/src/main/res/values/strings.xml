@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyStudentManagementApp</string>
+    <string name="add_student">Thêm sinh viên</string>
+</resources>
