@@ -61,14 +61,17 @@ class StudentAdapter(
                     }
                 }
                 R.id.menu_delete -> {
-                    // Xóa sinh viên
                     AlertDialog.Builder(context)
                         .setTitle("Xác nhận xóa")
                         .setMessage("Bạn có chắc chắn muốn xóa sinh viên này không?")
                         .setPositiveButton("Xóa") { _, _ ->
-                            students.removeAt(position)
-                            notifyItemRemoved(position)
-                            notifyItemRangeChanged(position, students.size)
+                            if (context is MainActivity) {
+                                val studentToDelete = students[position]
+                                context.studentDao.delete(studentToDelete)  // gọi DAO từ MainActivity
+                                students.removeAt(position)
+                                notifyItemRemoved(position)
+                                notifyItemRangeChanged(position, students.size)
+                            }
                         }
                         .setNegativeButton("Hủy", null)
                         .show()
